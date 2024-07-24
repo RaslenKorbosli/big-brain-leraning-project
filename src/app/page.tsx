@@ -1,27 +1,23 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import {
-  SignInButton,
-  SignOutButton,
-  useAuth,
-  UserButton,
-  useUser,
-} from '@clerk/nextjs';
-import { Authenticated, Unauthenticated } from 'convex/react';
+import MiniLoader from '@/components/mini-loader';
+import UploadDocument from '@/components/upload-document';
+import ShowDocumentData from '@/server/ShowDocumentData';
+import { useUser } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 export default function Home() {
-  const auth = useUser();
-  console.log(auth);
+  // const { user } = useUser();
+
   return (
-    <div>
-      <Button>Click meee</Button>
-      <Unauthenticated>
-        <SignInButton mode="modal" />
-      </Unauthenticated>
-      <Authenticated>
-        <UserButton />
-        {/* <Content /> */}
-      </Authenticated>
+    <div className="container pt-4">
+      <div className="flex justify-between items-center py-6">
+        <h1 className="text-2xl font-bold">My Documents</h1>
+        <UploadDocument />
+      </div>
+
+      <Suspense fallback={<MiniLoader className="h-16 w-16" />}>
+        <ShowDocumentData />
+      </Suspense>
     </div>
   );
 }
