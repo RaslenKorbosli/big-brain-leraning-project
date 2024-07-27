@@ -1,3 +1,4 @@
+'use client';
 import { useMutation } from 'convex/react';
 import { Button } from './ui/button';
 import { api } from '../../convex/_generated/api';
@@ -12,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import UploadDocumentForm from './upload-document-form';
 import { useState } from 'react';
+import { Upload } from 'lucide-react';
 
 export default function UploadDocument() {
   const [toggleForm, setToggleForm] = useState(false);
@@ -19,7 +21,10 @@ export default function UploadDocument() {
     <div>
       <Dialog open={toggleForm} onOpenChange={setToggleForm}>
         <DialogTrigger asChild>
-          <Button>Upload Document</Button>
+          <Button className="flex items-center gap-2">
+            <Upload className="w-4 h-4" />
+            Upload Document
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

@@ -11,6 +11,8 @@ import {
 
 import { api } from '../../convex/_generated/api';
 import { Button } from '@/components/ui/button';
+import { EyeIcon } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function ShowDocumentData() {
   const documentsData = useQuery(api.documents.getDocuments);
@@ -25,7 +27,16 @@ export default async function ShowDocumentData() {
             <p>Card Content</p>
           </CardContent>
           <CardFooter>
-            <Button variant="secondary">view</Button>
+            <Button
+              asChild
+              variant="secondary"
+              className="flex gap-2 items-center"
+            >
+              <Link href={`documents/${doc._id}`}>
+                <EyeIcon className="w-4 h-4" />
+                view
+              </Link>
+            </Button>
           </CardFooter>
         </Card>
       ))}

@@ -2,7 +2,7 @@
 import MiniLoader from '@/components/mini-loader';
 import UploadDocument from '@/components/upload-document';
 import ShowDocumentData from '@/server/ShowDocumentData';
-import { useUser } from '@clerk/nextjs';
+
 import { Suspense } from 'react';
 
 export default function Home() {

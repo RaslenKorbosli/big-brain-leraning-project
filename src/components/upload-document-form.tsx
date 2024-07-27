@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -14,12 +13,13 @@ import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { api } from '../../convex/_generated/api';
-import MiniLoader from './mini-loader';
+import LoadingButton from './loading-button';
 
 const formSchema = z.object({
   title: z.string().min(2, {
     message: 'Title must be at least 2 characters.',
   }),
+  file: z.instanceof(File),
 });
 
 export default function UploadDocumentForm({
@@ -34,9 +34,17 @@ export default function UploadDocumentForm({
     },
   });
   const addDocument = useMutation(api.documents.createDocument);
+  const generateUploadUrl = useMutation(api.documents.generateUploadUrl);
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
-    await addDocument({ title: values.title });
+    const postUrl = await generateUploadUrl();
+    const result = await fetch(postUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': values.file!.type },
+      body: values.file,
+    });
+    const { storageId } = await result.json();
+    await addDocument({ title: values.title, fileId: storageId });
     setToggleForm(false);
   }
   return (
@@ -56,9 +64,29 @@ export default function UploadDocumentForm({
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? <MiniLoader /> : 'submit'}
-        </Button>
+        <FormField
+          control={form.control}
+          name="file"
+          render={({ field: { value, onChange, ...propsField } }) => (
+            <FormItem>
+              <FormLabel> File</FormLabel>
+              <FormControl>
+                <Input
+                  type="file"
+                  accept=".txt,.xml,.doc,.pdf"
+                  {...propsField}
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    onChange(file);
+                  }}
+                />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <LoadingButton isSubmitting={form.formState.isSubmitting} />
       </form>
     </Form>
   );
