@@ -73,7 +73,7 @@ export default function UploadDocumentForm({
               <FormControl>
                 <Input
                   type="file"
-                  accept=".txt,.xml,.doc,.pdf"
+                  accept=".txt,.xml,.doc"
                   {...propsField}
                   onChange={(event) => {
                     const file = event.target.files?.[0];

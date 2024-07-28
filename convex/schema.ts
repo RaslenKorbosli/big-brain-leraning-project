@@ -8,4 +8,10 @@ export default defineSchema({
     fileId: v.id('_storage'),
     documentUrl: v.optional(v.string()),
   }).index('by_tokenIdentifier', ['tokenIdentifier']),
+  chats: defineTable({
+    documentId: v.id('documents'),
+    tokenIdentifier: v.string(),
+    isHuman: v.boolean(),
+    text: v.string(),
+  }).index('by_documentId_tokenIdentifier', ['tokenIdentifier', 'documentId']),
 });

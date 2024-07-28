@@ -1,14 +1,22 @@
 import { ConvexError, v } from 'convex/values';
 import { action, mutation, query } from './_generated/server';
 import { checkUser } from './users';
-import { api } from '../convex/_generated/api';
+import { api, internal } from '../convex/_generated/api';
 import { Doc } from './_generated/dataModel';
+import Groq from 'groq-sdk';
 
-import Anthropic from '@anthropic-ai/sdk';
-
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY, // This is the default and can be omitted
-});
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+async function getGroqChatCompletion() {
+  return groq.chat.completions.create({
+    messages: [
+      {
+        role: 'user',
+        content: 'Explain the importance of fast language models',
+      },
+    ],
+    model: 'llama3-8b-8192',
+  });
+}
 
 export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
@@ -71,12 +79,37 @@ export const askQuestion = action({
     if (!document) throw new ConvexError('document not found');
     const file = await ctx.storage.get(document.fileId);
     if (!file) throw new ConvexError('document not found');
-    const message = await anthropic.messages.create({
-      max_tokens: 1024,
-      messages: [{ role: 'user', content: 'Hello, Claude' }],
-      model: 'claude-3-opus-20240229',
+    const fileText = await file.text();
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: 'system',
+          content: `giving the following text file ${fileText}`,
+        },
+        {
+          role: 'user',
+          content: `please help to answer the question ${args.question}`,
+        },
+      ],
+      model: 'llama3-8b-8192',
     });
-    return message;
-    // console.log(message.content);
+    //store the chat of user
+    await ctx.runMutation(internal.chats.createChatRecord, {
+      documentId: args.documentId,
+      text: args.question,
+      tokenIdentifier: userToken,
+      isHuman: true,
+    });
+    //store the chat of chat ai
+    const text =
+      chatCompletion.choices[0]?.message?.content ||
+      'could not generate the response';
+    await ctx.runMutation(internal.chats.createChatRecord, {
+      documentId: args.documentId,
+      text: text,
+      tokenIdentifier: userToken,
+      isHuman: false,
+    });
+    return text;
   },
 });
