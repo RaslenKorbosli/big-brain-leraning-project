@@ -3,6 +3,8 @@ import Image from 'next/image';
 import HeaderAccount from './Header-account';
 import Link from 'next/link';
 
+import NavBar from '@/components/nav-bar';
+
 export default function Header() {
   return (
     <div className=" py-4 bg-gray-100 dark:bg-zinc-800">
@@ -19,9 +21,7 @@ export default function Header() {
             <h1 className="text-2xl">Big Brain</h1>
           </div>{' '}
         </Link>
-        <nav>
-          <Link href="/documents"> documents</Link>
-        </nav>
+        <NavBar />
         <div className="flex justify-center items-center gap-4">
           <HeaderAccount />
           <ModeToggle />

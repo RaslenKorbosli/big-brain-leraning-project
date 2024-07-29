@@ -1,11 +1,12 @@
 'use client';
 import { useQuery } from 'convex/react';
-import { api } from '../../../../convex/_generated/api';
-import { Doc, Id } from '../../../../convex/_generated/dataModel';
+import { api } from '../../../../../convex/_generated/api';
+import { Doc, Id } from '../../../../../convex/_generated/dataModel';
 import ChatPanel from './chat-panel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import DeleteDocumentButton from '@/components/delete-document-button';
+import { Toaster } from 'react-hot-toast';
 
 export default function ViewDocument({
   params,
@@ -18,6 +19,7 @@ export default function ViewDocument({
 
   return (
     <div className="container pt-4">
+      <Toaster />
       <div className=" py-6">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold"> {document?.title} Document</h1>

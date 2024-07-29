@@ -14,6 +14,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { api } from '../../convex/_generated/api';
 import LoadingButton from './loading-button';
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -45,6 +46,15 @@ export default function UploadDocumentForm({
     });
     const { storageId } = await result.json();
     await addDocument({ title: values.title, fileId: storageId });
+    toast.success('Document Added Successfully', {
+      duration: 3000,
+      style: {
+        padding: '16px',
+        color: '#27272a',
+        fontWeight: 500,
+      },
+      position: 'bottom-right',
+    });
     setToggleForm(false);
   }
   return (

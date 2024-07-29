@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,28 +7,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Upload } from 'lucide-react';
+import { PlusIcon, Upload } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from './ui/button';
-import UploadDocumentForm from './upload-document-form';
+import UploadNoteForm from './upload-note-form';
 
-export default function UploadDocument() {
+export default function UploadNote() {
   const [toggleForm, setToggleForm] = useState(false);
   return (
     <div>
       <Dialog open={toggleForm} onOpenChange={setToggleForm}>
         <DialogTrigger asChild>
           <Button className="flex items-center gap-2">
-            <Upload className="w-4 h-4" />
-            Upload Document
+            <PlusIcon className="w-4 h-4" />
+            Add Note
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Upload a Document</DialogTitle>
+            <DialogTitle>Add a Note To Search Later</DialogTitle>
           </DialogHeader>
           <DialogContent>
-            <UploadDocumentForm setToggleForm={setToggleForm} />
+            <UploadNoteForm setToggleForm={setToggleForm} />
           </DialogContent>
         </DialogContent>
       </Dialog>

@@ -5,6 +5,7 @@ export default function LoadingButton({
   isSubmitting,
 }: {
   isSubmitting: boolean;
+  eventName?: string;
 }) {
   return (
     <Button

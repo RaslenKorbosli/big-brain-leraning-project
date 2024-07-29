@@ -4,12 +4,14 @@ import UploadDocument from '@/components/upload-document';
 import ShowDocumentData from '@/server/ShowDocumentData';
 
 import { Suspense } from 'react';
+import { Toaster } from 'react-hot-toast';
 
-export default function Home() {
+export default function dashboardPage() {
   // const { user } = useUser();
 
   return (
-    <div className="container pt-4">
+    <main className="container pt-4">
+      <Toaster />
       <div className="flex justify-between items-center py-6">
         <h1 className="text-2xl font-bold">My Documents</h1>
         <UploadDocument />
@@ -18,6 +20,6 @@ export default function Home() {
       <Suspense fallback={<MiniLoader className="h-16 w-16" />}>
         <ShowDocumentData />
       </Suspense>
-    </div>
+    </main>
   );
 }

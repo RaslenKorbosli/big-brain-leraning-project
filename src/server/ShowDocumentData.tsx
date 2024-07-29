@@ -1,19 +1,17 @@
-import { useQuery } from 'convex/react';
-import { Doc } from '../../convex/_generated/dataModel';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useQuery } from 'convex/react';
 
-import { api } from '../../convex/_generated/api';
 import { Button } from '@/components/ui/button';
 import { EyeIcon } from 'lucide-react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import { api } from '../../convex/_generated/api';
 
 export default async function ShowDocumentData() {
   const documentsData = useQuery(api.documents.getDocuments);

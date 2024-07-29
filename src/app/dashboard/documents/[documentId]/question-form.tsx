@@ -12,8 +12,8 @@ import { useAction } from 'convex/react';
 import { ArrowUpIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { api } from '../../../../convex/_generated/api';
-import { Id } from '../../../../convex/_generated/dataModel';
+import { api } from '../../../../../convex/_generated/api';
+import { Id } from '../../../../../convex/_generated/dataModel';
 import MiniLoader from '@/components/mini-loader';
 
 const formSchema = z.object({

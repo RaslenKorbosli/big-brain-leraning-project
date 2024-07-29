@@ -7,7 +7,7 @@ export const checkUser = async (
   ctx: QueryCtx | MutationCtx
 ): Promise<UserIdentity> => {
   const user = await ctx.auth.getUserIdentity();
-  if (!user) throw new ConvexError('you must be logged in');
+  if (!user) return {} as UserIdentity;
   return user;
 };
 export const hasAccessToDocumentAndIsAuthUser = async (

@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { api } from '../../convex/_generated/api';
 import { Doc } from '../../convex/_generated/dataModel';
 import { Button } from './ui/button';
+import toast from 'react-hot-toast';
 
 export default function DeleteDocumentButton({
   document,
@@ -44,7 +45,16 @@ export default function DeleteDocumentButton({
                   documentId: document._id,
                   fileId: document.fileId,
                 });
-                router.push('/documents');
+                toast.success('Document Deleted Successfully', {
+                  duration: 3000,
+                  style: {
+                    padding: '16px',
+                    color: '#27272a',
+                    fontWeight: 500,
+                  },
+                  position: 'bottom-right',
+                });
+                router.push('/dashboard/documents');
               }}
             >
               Delete

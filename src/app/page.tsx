@@ -10,14 +10,7 @@ export default function Home() {
 
   return (
     <div className="container pt-4">
-      <div className="flex justify-between items-center py-6">
-        <h1 className="text-2xl font-bold">My Documents</h1>
-        <UploadDocument />
-      </div>
-
-      <Suspense fallback={<MiniLoader className="h-16 w-16" />}>
-        <ShowDocumentData />
-      </Suspense>
+      <h1>Welcome , to big brain</h1>
     </div>
   );
 }

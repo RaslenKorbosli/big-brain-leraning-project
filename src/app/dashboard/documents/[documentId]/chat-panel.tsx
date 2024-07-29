@@ -1,12 +1,13 @@
 import { cn } from '@/lib/utils';
 import { useQuery } from 'convex/react';
-import { api } from '../../../../convex/_generated/api';
-import { Id } from '../../../../convex/_generated/dataModel';
+
 import QuestionForm from './question-form';
 import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { BotMessageSquare } from 'lucide-react';
 import { useRef } from 'react';
+import { Id } from '../../../../../convex/_generated/dataModel';
+import { api } from '../../../../../convex/_generated/api';
 
 export default function ChatPanel({
   documentId,
