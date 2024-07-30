@@ -16,7 +16,7 @@ export default function NotesLayout({
 }>) {
   const notesData = useQuery(api.note.getNotes);
   const params = useParams<{ noteId: Id<'notes'> }>();
-  console.log(params);
+
   return (
     <main className="container pt-4">
       <Toaster position="bottom-right" />
@@ -31,7 +31,6 @@ export default function NotesLayout({
         ) : (
           <div className="flex gap-6">
             <ShowNotes notesData={notesData} />
-
             {children}
           </div>
         )}

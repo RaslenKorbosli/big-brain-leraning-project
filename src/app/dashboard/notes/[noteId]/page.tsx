@@ -11,8 +11,8 @@ export default function NotePage({
 }) {
   const note = useQuery(api.note.getNote, { noteId: params.noteId });
   return (
-    <div className="max-w-[500px] h-screen dark:bg-zinc-800 overflow-x-auto bg-slate-50  rounded-lg p-4 ">
-      {!note ? <MiniLoader /> : note.note}
+    <div className="w-[1000px] h-fit dark:bg-zinc-800 bg-slate-50 rounded-lg p-4 ">
+      {note === undefined ? <MiniLoader /> : <p className="">{note?.note}</p>}
     </div>
   );
 }
