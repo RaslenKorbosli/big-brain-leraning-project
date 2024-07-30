@@ -31,3 +31,10 @@ export const getNote = query({
     return await ctx.db.get(args.noteId);
   },
 });
+export const deleteNote = mutation({
+  args: { noteId: v.id('notes') },
+  async handler(ctx, args) {
+    const user = await checkUser(ctx);
+    await ctx.db.delete(args.noteId);
+  },
+});

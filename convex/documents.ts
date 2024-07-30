@@ -71,18 +71,6 @@ export const deleteDocument = mutation({
     const user = await checkUser(ctx);
     await ctx.storage.delete(args.fileId);
     await ctx.db.delete(args.documentId);
-    // if (!docUrl) throw new Error('error , plz try again later');
-    // const documentId = await ctx.db.insert('documents', {
-    //   title: args.title,
-    //   tokenIdentifier: user.tokenIdentifier,
-    //   fileId: args.fileId,
-    //   documentUrl: docUrl,
-    //   description: '',
-    // });
-    // ctx.scheduler.runAfter(0, internal.documents.generateDescription, {
-    //   documentId,
-    //   fileId: args.fileId,
-    // });
   },
 });
 export const generateDescription = internalAction({

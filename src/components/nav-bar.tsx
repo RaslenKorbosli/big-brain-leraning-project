@@ -32,7 +32,7 @@ export default function NavBar() {
           key={link.id}
           href={link.link}
           className={cn('flex gap-2 hover:text-blue-400', {
-            'text-blue-500 font-semibold': pathName.endsWith(link.linkTitle),
+            'text-blue-500 font-semibold': pathName.includes(link.linkTitle),
           })}
         >
           {' '}
