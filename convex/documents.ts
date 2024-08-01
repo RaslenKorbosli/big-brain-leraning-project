@@ -131,14 +131,14 @@ export const askQuestion = action({
       messages: [
         {
           role: 'system',
-          content: `giving the following text file ${fileText}`,
+          content: `giving the following text file ${fileText} and do not answer any question that is not talk about he file provided and tell the user to ask a question about the file and not other subject`,
         },
         {
           role: 'user',
           content: `please help to answer the question ${args.question}`,
         },
       ],
-      model: 'llama3-8b-8192',
+      model: 'llama-3.1-8b-instant',
     });
     //store the chat of user
     await ctx.runMutation(internal.chats.createChatRecord, {

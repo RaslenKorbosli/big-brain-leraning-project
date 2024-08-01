@@ -23,7 +23,7 @@ export default function ViewDocument({
       <div className=" py-6">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold"> {document?.title} Document</h1>
-          <DeleteDocumentButton document={document} />
+          {document && <DeleteDocumentButton document={document} />}
         </div>
 
         <Tabs defaultValue="document" className="w-full h-fit mt-6">
